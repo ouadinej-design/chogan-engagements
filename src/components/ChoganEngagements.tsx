@@ -13,7 +13,6 @@ import {
 
 type Profil = "nada" | "consultante" | null;
 type Tab = "write" | "read";
-type FsStage = "closed" | "floating" | "landed" | "revealed";
 
 interface Toast {
   id: number;
@@ -63,7 +62,6 @@ export default function ChoganEngagements() {
 
   // ---- Overlay plein écran (bouteille) ----
   const [fsOpen, setFsOpen] = useState(false);
-  const [fsStage, setFsStage] = useState<FsStage>("closed");
   const [fsShowFinal, setFsShowFinal] = useState(false);
   const [fsData, setFsData] = useState<{
     prenom: string;
@@ -358,22 +356,24 @@ export default function ChoganEngagements() {
         texte: data.engagements,
       });
       setFsShowFinal(false);
-      setFsStage("floating");
       setFsOpen(true);
       document.body.style.overflow = "hidden";
       demarrerVagues();
 
       if (fsFloatTimer.current) clearTimeout(fsFloatTimer.current);
       fsFloatTimer.current = setTimeout(() => {
-        setFsStage("landed");
         sonEchouage();
         setTimeout(() => sonFrottement(1.3), 400);
         setTimeout(() => {
-          setFsStage("revealed");
+          setTimeout(() => {
+            sonBouchon();
+            arreterVagues();
+            setTimeout(() => setFsShowFinal(true), 350);
+          }, 2000);
         }, 1900);
       }, 3500);
     },
-    [demarrerVagues, sonEchouage, sonFrottement]
+    [demarrerVagues, sonEchouage, sonFrottement, sonBouchon, arreterVagues]
   );
 
   const ouvrirEnveloppe = () => {
@@ -419,18 +419,11 @@ export default function ChoganEngagements() {
     lancerAnimationOuvertureFullscreen(data, modeAdmin);
   };
 
-  const fsOpenCork = () => {
-    sonBouchon();
-    arreterVagues();
-    setTimeout(() => setFsShowFinal(true), 350);
-  };
-
   const fermerAnimationFullscreen = () => {
     if (fsFloatTimer.current) clearTimeout(fsFloatTimer.current);
     arreterVagues();
     setFsOpen(false);
     setFsShowFinal(false);
-    setFsStage("closed");
     document.body.style.overflow = "";
   };
 
@@ -631,12 +624,10 @@ export default function ChoganEngagements() {
       {/* Overlay plein écran bouteille */}
       {fsOpen && (
         <BottleOverlay
-          stage={fsStage}
           showFinal={fsShowFinal}
           fsData={fsData}
           engagementLignes={engagementLignes}
           onClose={fermerAnimationFullscreen}
-          onOpenCork={fsOpenCork}
           onSavePdf={enregistrerPDF}
           onSaveTxt={enregistrerTxt}
           onShare={partager}
@@ -951,23 +942,19 @@ function ReadSection({
 }
 
 function BottleOverlay({
-  stage,
   showFinal,
   fsData,
   engagementLignes,
   onClose,
-  onOpenCork,
   onSavePdf,
   onSaveTxt,
   onShare,
   onQuit,
 }: {
-  stage: FsStage;
   showFinal: boolean;
   fsData: { prenom: string; nom: string; titre: string; date: string; texte: string } | null;
   engagementLignes: string[];
   onClose: () => void;
-  onOpenCork: () => void;
   onSavePdf: () => void;
   onSaveTxt: () => void;
   onShare: () => void;
@@ -1001,17 +988,6 @@ function BottleOverlay({
       >
         ✕
       </button>
-
-      {!showFinal && stage === "revealed" && (
-        <div className="absolute inset-0 flex flex-col justify-end items-center pb-16 z-10">
-          <button
-            onClick={onOpenCork}
-            className="bg-rose-600 text-white font-bold rounded-full px-6 py-3 shadow-lg z-10"
-          >
-            🔓 Ouvrir le bouchon
-          </button>
-        </div>
-      )}
 
       {showFinal && fsData && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-stone-50 to-stone-200 px-6 py-8 text-center">
