@@ -412,10 +412,9 @@ export default function ChoganEngagements() {
       return;
     }
 
-    showToast(
-      modeAdmin ? "🛡️ Ouverture forcée par Admin" : "✅ Enveloppe ouverte.",
-      modeAdmin ? "info" : "success"
-    );
+    if (modeAdmin) {
+      showToast("🛡️ Ouverture forcée par Admin", "info");
+    }
     lancerAnimationOuvertureFullscreen(data, modeAdmin);
   };
 
@@ -970,7 +969,7 @@ function BottleOverlay({
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-contain"
           />
           <div
             className="absolute inset-0"
