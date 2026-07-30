@@ -1004,28 +1004,6 @@ function BottleOverlay({
 
       {!showFinal && stage === "revealed" && (
         <div className="absolute inset-0 flex flex-col justify-end items-center pb-16 z-10">
-          <div
-            className="absolute"
-            style={{
-              top: "57%",
-              left: "50%",
-              width: "76%",
-              maxWidth: "320px",
-              transform: "translate(-50%, -50%) rotate(-24deg)",
-              background: "rgba(253,246,227,0.92)",
-              color: "#1c1917",
-              fontFamily: "Courier New, monospace",
-              fontWeight: "bold",
-              padding: "8px 14px",
-              borderRadius: "4px",
-              fontSize: "14px",
-              textAlign: "center",
-              border: "1px solid rgba(120,90,50,0.6)",
-              boxShadow: "0 3px 10px rgba(0,0,0,0.35)",
-            }}
-          >
-            CONSULTANTE : {fsData?.prenom} {fsData?.nom}
-          </div>
           <button
             onClick={onOpenCork}
             className="bg-rose-600 text-white font-bold rounded-full px-6 py-3 shadow-lg z-10"
