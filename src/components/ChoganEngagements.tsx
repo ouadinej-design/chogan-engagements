@@ -368,10 +368,10 @@ export default function ChoganEngagements() {
           setTimeout(() => {
             sonBouchon();
             arreterVagues();
-            setTimeout(() => setFsShowFinal(true), 350);
-          }, 2000);
-        }, 1900);
-      }, 3500);
+            setTimeout(() => setFsShowFinal(true), 500);
+          }, 2500);
+        }, 2500);
+      }, 5000);
     },
     [demarrerVagues, sonEchouage, sonFrottement, sonBouchon, arreterVagues]
   );
