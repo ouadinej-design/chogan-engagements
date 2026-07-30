@@ -990,23 +990,43 @@ function BottleOverlay({
       </button>
 
       {showFinal && fsData && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-stone-50 to-stone-200 px-6 py-8 text-center">
-          <div className="max-w-md w-full max-h-[55vh] overflow-y-auto">
-            <h2 className="text-emerald-800 font-bold text-lg mb-1">{fsData.titre}</h2>
-            <p className="text-stone-500 text-xs mb-5">{fsData.date}</p>
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center px-5 py-8 text-center"
+          style={{
+            background:
+              "radial-gradient(ellipse at top, #7dd3fc 0%, #0369a1 55%, #04243f 100%)",
+          }}
+        >
+          <div
+            className="max-w-md w-full max-h-[62vh] overflow-y-auto relative"
+            style={{
+              background:
+                "linear-gradient(155deg, #f3e6c8 0%, #ecd9ab 45%, #e4cf9c 100%)",
+              color: "#3b2f1e",
+              padding: "34px 26px",
+              boxShadow: "0 20px 45px rgba(0,0,0,0.45)",
+              clipPath:
+                "polygon(1% 4%, 6% 0%, 14% 2%, 22% 0%, 30% 3%, 39% 0%, 48% 2%, 57% 0%, 66% 3%, 75% 0%, 84% 2%, 92% 0%, 99% 4%, 99% 96%, 93% 100%, 85% 98%, 76% 100%, 67% 97%, 58% 100%, 49% 98%, 40% 100%, 31% 97%, 22% 100%, 13% 98%, 5% 100%, 1% 96%)",
+            }}
+          >
+            <h2 className="font-serif font-bold text-xl mb-1" style={{ color: "#4a3419" }}>
+              {fsData.titre}
+            </h2>
+            <p className="font-serif text-xs mb-5 opacity-70">{fsData.date}</p>
             {engagementLignes.length > 1 ? (
-              <ul className="flex flex-col gap-2 text-left">
+              <ul className="flex flex-col gap-2 text-left font-serif">
                 {engagementLignes.map((l, i) => (
                   <li
                     key={i}
-                    className="bg-rose-50 border border-rose-200 rounded-lg px-3 py-2 text-stone-800 text-sm"
+                    className="rounded-md px-3 py-2 text-sm"
+                    style={{ background: "rgba(255,255,255,0.35)", border: "1px solid rgba(74,52,25,0.25)" }}
                   >
                     {l}
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="bg-white rounded-xl p-5 shadow text-stone-800 text-left whitespace-pre-wrap">
+              <p className="font-serif text-left whitespace-pre-wrap text-[15px] leading-relaxed">
                 {fsData.texte}
               </p>
             )}
