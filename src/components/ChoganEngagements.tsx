@@ -1009,7 +1009,13 @@ function BottleOverlay({
                 "polygon(1% 4%, 6% 0%, 14% 2%, 22% 0%, 30% 3%, 39% 0%, 48% 2%, 57% 0%, 66% 3%, 75% 0%, 84% 2%, 92% 0%, 99% 4%, 99% 96%, 93% 100%, 85% 98%, 76% 100%, 67% 97%, 58% 100%, 49% 98%, 40% 100%, 31% 97%, 22% 100%, 13% 98%, 5% 100%, 1% 96%)",
             }}
           >
-            <h2 className="font-serif font-bold text-xl mb-1" style={{ color: "#4a3419" }}>
+            <h1
+              className="font-serif font-bold text-2xl mb-3 pb-2"
+              style={{ color: "#2b2013", borderBottom: "2px solid rgba(74,52,25,0.3)" }}
+            >
+              Mes engagements
+            </h1>
+            <h2 className="font-serif font-bold text-base mb-1" style={{ color: "#4a3419" }}>
               {fsData.titre}
             </h2>
             <p className="font-serif text-xs mb-5 opacity-70">{fsData.date}</p>
@@ -1030,6 +1036,22 @@ function BottleOverlay({
                 {fsData.texte}
               </p>
             )}
+
+            <div className="flex justify-center mt-6 mb-1">
+              <div
+                className="font-serif font-black text-xl px-4 py-1"
+                style={{
+                  color: "#b91c1c",
+                  border: "3px solid #b91c1c",
+                  borderRadius: "6px",
+                  transform: "rotate(-8deg)",
+                  letterSpacing: "2px",
+                  opacity: 0.85,
+                }}
+              >
+                VALIDÉ ✔
+              </div>
+            </div>
           </div>
           <div className="flex flex-col gap-2 w-full max-w-xs mt-6">
             <button onClick={onSavePdf} className="bg-rose-600 text-white rounded-full py-3 font-bold">
